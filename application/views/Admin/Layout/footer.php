@@ -45,6 +45,8 @@
         $(".produk").html($(this).find(':selected').attr('data-produk'));
         $(".produk").val($(this).find(':selected').attr('data-produk'));
 
+
+
     });
 </script>
 <script>
@@ -60,7 +62,8 @@
 
         $(".produk").html($(this).find(':selected').attr('data-produk'));
         $(".produk").val($(this).find(':selected').attr('data-produk'));
-
+        $(".periode").html($(this).find(':selected').attr('data-periode'));
+        $(".periode").val($(this).find(':selected').attr('data-periode'));
     });
 </script>
 <script>

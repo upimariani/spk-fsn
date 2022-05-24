@@ -32,6 +32,21 @@
     <?php
     }
     ?>
+    <?php
+    if ($this->session->userdata('error')) {
+    ?>
+        <div class="notification red">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                <div>
+                    <span class="icon"><i class="mdi mdi-buffer"></i></span>
+                    <b><?= $this->session->userdata('error') ?></b>
+                </div>
+                <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
+            </div>
+        </div>
+    <?php
+    }
+    ?>
     <div class="card has-table">
         <header class="card-header">
             <p class="card-header-title">
@@ -80,7 +95,13 @@
                                 </div>
                             </td>
                             <td data-label="Name"><?= $value->nama_produk ?></td>
-                            <td data-label="Company"><?= $value->periode ?></td>
+                            <?php
+                            $periode = $value->periode;
+                            $explode = explode("-", $periode);
+                            $tahun = $explode[0]; //untuk tahun
+                            $bulan = $explode[1]; //untuk bulan
+                            ?>
+                            <td data-label="Company"><?= $bulan ?> / <?= $tahun ?></td>
                             <td data-label="City"><?= $value->pers_awal ?></td>
                             <td data-label="City"><?= $value->penerimaan ?></td>
                             <td data-label="City"><?= $value->pengeluaran ?></td>

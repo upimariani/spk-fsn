@@ -52,58 +52,80 @@ class cHitungFSN extends CI_Controller
             $this->load->view('Admin/FSN/hitung', $data);
             $this->load->view('Admin/Layout/footer');
         } else {
-            echo 'berhasil';
-
-            //DATA IN
-            $month = $this->input->post('fsn');
-            $month_variabel = $this->mHitungFSN->variabel_periode($month);
-            echo $month_variabel->periode;
-            $penerimaan = $month_variabel->penerimaan;
-            $pengeluaran = $month_variabel->pengeluaran;
-
-            //DATA PERIODE SEBELUM NYA
-            $before_month = $this->mHitungFSN->before_month($month);
-            $before = $before_month['month']->pers_akhir;
-            $explode = explode("-", $before);
+            $tanggal = $this->input->post('tgl');
+            $str = $tanggal;
+            $explode = explode("-", $str);
             $tahun = $explode[0]; //untuk tahun
             $bulan = $explode[1]; //untuk bulan
 
-            $before_variabel = $this->mHitungFSN->before_variabel($bulan, $tahun);
+            $tgl_periode = $tanggal . '-' . $bulan;
+            $datein = date('Y-m');
 
-            //data persamaan akhir di peiode sebelumnya
-            $pers_akhir_sebelumnya = $before_variabel->pers_akhir;
+            if ($tgl_periode > $datein) {
+                $this->session->set_flashdata('error', 'Data Periode Belum Memenuhi Satu Bulan!');
+                redirect('Admin/cHitungFSN/periode/' . $id);
+            } else {
+                //DATA IN
+                $month = $this->input->post('fsn');
+                $month_variabel = $this->mHitungFSN->variabel_periode($month);
+                echo $month_variabel->periode;
+                $id_produk = $month_variabel->id_produk;
+                $penerimaan = $month_variabel->penerimaan;
+                $pengeluaran = $month_variabel->pengeluaran;
 
-            //perhitungan rata-rata
-            //prt = (paw+pak)/2
-            $prt = 0;
-            $persamaan_awal = $pers_akhir_sebelumnya;
-            $persamaan_akhir = $persamaan_awal + $penerimaan - $pengeluaran;
-            $prt = ($persamaan_awal + $persamaan_akhir) / 2;
-            echo '<br><br>HASIL RATA-RATA';
-            echo '<br>' . $persamaan_akhir;
-            echo '<br>' . $persamaan_awal;
-            echo '<br>Hasil Rata-Rata: ' . $prt;
+                //DATA PERIODE SEBELUM NYA
+                $before_month = $this->mHitungFSN->before_month($month);
+                $before = $before_month['month']->pers_akhir;
+                $explode = explode("-", $before);
+                $tahun = $explode[0]; //untuk tahun
+                $bulan = $explode[1]; //untuk bulan
 
-            //perhitungan turn over ratio parsial
-            //TOR p = pmk/prt
-            $torp = 0;
-            $torp = $pengeluaran / $prt;
-            echo '<br><br>TOR PARSIAL';
-            echo '<br>Hasil: ' . $torp;
+                $before_variabel = $this->mHitungFSN->before_variabel($bulan, $tahun, $id_produk);
 
-            //wsp (waktu penyimpanan)
-            //wsp = jhp/tor
-            $wsp = 0;
-            $wsp = 30 / $torp;
-            echo '<br><br>Waktu Penyimpanan';
-            echo '<br>Hasil: ' . $wsp;
+                //data persamaan akhir di peiode sebelumnya
+                $pers_akhir_sebelumnya = $before_variabel->pers_akhir;
 
-            //TOR
-            //tor = jht / wsp
-            $tor = 0;
-            $tor = 360 / $wsp;
-            echo '<br><br>TOR';
-            echo '<br>Hasil: ' . $tor;
+                //perhitungan rata-rata
+                //prt = (paw+pak)/2
+                $prt = 0;
+                $persamaan_awal = $pers_akhir_sebelumnya;
+                $persamaan_akhir = $persamaan_awal + $penerimaan - $pengeluaran;
+                $prt = ($persamaan_awal + $persamaan_akhir) / 2;
+
+                //perhitungan turn over ratio parsial
+                //TOR p = pmk/prt
+                $torp = 0;
+                $torp = $pengeluaran / $prt;
+
+                //wsp (waktu penyimpanan)
+                //wsp = jhp/tor
+                $wsp = 0;
+                $wsp = 30 / $torp;
+
+                //TOR
+                //tor = jht / wsp
+                $tor = 0;
+                $tor = 360 / $wsp;
+
+
+                if ($tor > 3) {
+                    $status = 'fast';
+                } else if (3 >= $tor) {
+                    $status = 'slow';
+                } else if ($tor < 1) {
+                    $status = 'non moving';
+                }
+
+                $data = array(
+                    'pers_awal' => $persamaan_awal,
+                    'pers_akhir' => $persamaan_akhir,
+                    'status' => $status
+                );
+                $this->mHitungFSN->status_periode($month, $data);
+
+                $this->session->set_flashdata('success', 'Data Analisis Produk Berhasil Disimpan!');
+                redirect('Admin/cHitungFSN/periode/' . $id);
+            }
         }
     }
 }

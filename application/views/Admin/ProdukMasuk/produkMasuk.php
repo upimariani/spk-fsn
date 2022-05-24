@@ -12,7 +12,7 @@
         <h1 class="title">
             Informasi Produk Masuk
         </h1>
-        <a href="<?= base_url('Admin/cProdukMasuk/create') ?>" class="button light">Button</a>
+        <a href="<?= base_url('Admin/cProdukMasuk/create') ?>" class="button light">Create</a>
     </div>
 </section>
 

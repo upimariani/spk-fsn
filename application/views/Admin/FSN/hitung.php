@@ -12,7 +12,6 @@
         <h1 class="title">
             Calculate This Period
         </h1>
-        <button class="button light">Button</button>
     </div>
 </section>
 
@@ -32,6 +31,7 @@
                             <label class="label">Periode</label>
                             <div class="control">
                                 <div class="select">
+
                                     <select id="fsn" name="fsn">
                                         <option value="">---Pilih Periode---</option>
                                         <?php
@@ -42,7 +42,7 @@
                                             $bulan = $explode[1]; //untuk bulan
                                             $tanggal = $explode[2]; //untuk tanggal
                                         ?>
-                                            <option data-produk="<?= $value->nama_produk ?>" data-pengeluaran="<?= $value->pengeluaran ?>" data-penerimaan="<?= $value->penerimaan ?>" value="<?= $value->id_variabel ?>">Bulan: <?= $bulan ?> / Tahun : <?= $tahun ?></option>
+                                            <option data-periode="<?= $value->periode ?>" data-produk="<?= $value->nama_produk ?>" data-pengeluaran="<?= $value->pengeluaran ?>" data-penerimaan="<?= $value->penerimaan ?>" value="<?= $value->id_variabel ?>">Bulan: <?= $bulan ?> / Tahun : <?= $tahun ?></option>
                                         <?php
                                         }
                                         ?>
@@ -78,6 +78,7 @@
                         </div>
                         <?= form_error('pengeluaraan', ' <p class="help">', '</p>') ?>
                         <hr>
+                        <input type="hidden" name="tgl" class="periode">
                         <div class="field grouped">
                             <div class="control">
                                 <button type="submit" class="button green">

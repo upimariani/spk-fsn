@@ -18,24 +18,19 @@ class mHitungFSN extends CI_Model
     }
     public function detail_periode($id)
     {
-        $this->db->select('*');
-        $this->db->from('variabel_item');
-        $this->db->join('produk', 'variabel_item.id_produk = produk.id_produk', 'left');
-        $this->db->where('status!=0');
-        $this->db->where('variabel_item.id_produk', $id);
-        $data['variabel'] = $this->db->get()->result();
+        $data['variabel'] = $this->db->query("SELECT * FROM `variabel_item` JOIN produk ON variabel_item.id_produk = produk.id_produk WHERE variabel_item.id_produk='" . $id . "' AND status!='0'")->result();
         $data['produk'] = $this->db->query("SELECT * FROM `produk` WHERE id_produk='" . $id . "'")->row();
         return $data;
     }
     //data create hitung
     public function periode($id)
     {
+        $status = '0';
         $this->db->select('*');
         $this->db->from('variabel_item');
         $this->db->join('produk', 'variabel_item.id_produk = produk.id_produk', 'left');
-        $this->db->where('status=0');
+        $this->db->where('status', $status);
         $this->db->where('variabel_item.id_produk', $id);
-
         return $this->db->get()->result();
     }
 
@@ -56,10 +51,17 @@ class mHitungFSN extends CI_Model
     }
 
     //menambil data dari periode query diatas
-    public function before_variabel($month, $year)
+    public function before_variabel($month, $year, $id_produk)
     {
-        $variabel = $this->db->query("SELECT * FROM variabel_item where month(periode)='" . $month . "' and year(periode)= '" . $year . "'")->row();
+        $variabel = $this->db->query("SELECT * FROM variabel_item where month(periode)='" . $month . "' and year(periode)= '" . $year . "'  and id_produk='" . $id_produk . "'")->row();
         return $variabel;
+    }
+
+    //update status periode
+    public function status_periode($id, $data)
+    {
+        $this->db->where('id_variabel', $id);
+        $this->db->update('variabel_item', $data);
     }
 }
 

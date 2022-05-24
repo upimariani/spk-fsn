@@ -12,7 +12,7 @@
         <h1 class="title">
             Create New Enter Product
         </h1>
-        <button class="button light">Button</button>
+        <a href="<?= base_url('Admin/cProdukMasuk') ?>" class="button light">Kembali</a>
     </div>
 </section>
 
