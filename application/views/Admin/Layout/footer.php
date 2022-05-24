@@ -22,8 +22,47 @@
 
 <!-- Scripts below are for demo only -->
 <script type="text/javascript" src="<?= base_url('asset/admin-one/dist/') ?>js/main.min.js?v=1628755089081"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+    $(function() {
+        $("#datepicker").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+    });
+</script>
+<script>
+    console.log = function() {}
+    $("#produk-masuk").on('change', function() {
+
+        $(".tgl").html($(this).find(':selected').attr('data-tgl'));
+        $(".tgl").val($(this).find(':selected').attr('data-tgl'));
 
 
+        $(".qty").html($(this).find(':selected').attr('data-stok'));
+        $(".qty").val($(this).find(':selected').attr('data-stok'));
+
+        $(".produk").html($(this).find(':selected').attr('data-produk'));
+        $(".produk").val($(this).find(':selected').attr('data-produk'));
+
+    });
+</script>
+<script>
+    console.log = function() {}
+    $("#fsn").on('change', function() {
+
+        $(".pengeluaran").html($(this).find(':selected').attr('data-pengeluaran'));
+        $(".pengeluaran").val($(this).find(':selected').attr('data-pengeluaran'));
+
+
+        $(".penerimaan").html($(this).find(':selected').attr('data-penerimaan'));
+        $(".penerimaan").val($(this).find(':selected').attr('data-penerimaan'));
+
+        $(".produk").html($(this).find(':selected').attr('data-produk'));
+        $(".produk").val($(this).find(':selected').attr('data-produk'));
+
+    });
+</script>
 <script>
     ! function(f, b, e, v, n, t, s) {
         if (f.fbq) return;

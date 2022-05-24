@@ -2,7 +2,7 @@
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         <ul>
             <li>Admin</li>
-            <li>Produk Keluar</li>
+            <li>Data Produk <?= $detail['produk']->nama_produk ?></li>
         </ul>
     </div>
 </section>
@@ -10,9 +10,9 @@
 <section class="is-hero-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         <h1 class="title">
-            Informasi Produk Keluar
+            Informasi Penerimaan Pengeluaran Per Periode
         </h1>
-        <button class="button light">Button</button>
+        <a href="<?= base_url('Admin/cHitungFSN/hitung/' . $detail['produk']->id_produk) ?>" class="button light">Hitung</a>
     </div>
 </section>
 
@@ -36,7 +36,7 @@
         <header class="card-header">
             <p class="card-header-title">
                 <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-                Produk Keluar Mebeul Sinar Indah
+                Informasi Status Produk PerPeriode
             </p>
             <a href="#" class="card-header-icon">
                 <span class="icon"><i class="mdi mdi-reload"></i></span>
@@ -54,39 +54,53 @@
                         </th>
                         <th class="image-cell"></th>
                         <th>Nama Produk</th>
-                        <th>Tanggal Masuk</th>
-                        <th>Quantity Produk Keluar</th>
+                        <th>Periode</th>
+                        <th>Persamaan Awal</th>
+                        <th>Penerimaan</th>
+                        <th>Pengeluaraan</th>
+                        <th>Persamaan Akhir</th>
+                        <th>Status (Fast, Slow, Non Moving)</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="checkbox-cell">
-                            <label class="checkbox">
-                                <input type="checkbox">
-                                <span class="check"></span>
-                            </label>
-                        </td>
-                        <td class="image-cell">
-                            <div class="image">
-                                <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="rounded-full">
-                            </div>
-                        </td>
-                        <td data-label="Name">Rebecca Bauch</td>
-                        <td data-label="Company">Daugherty-Daniel</td>
-                        <td data-label="City">South Cory</td>
+                    <?php
+                    foreach ($detail['variabel'] as $key => $value) {
+                    ?>
+                        <tr>
+                            <td class="checkbox-cell">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    <span class="check"></span>
+                                </label>
+                            </td>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="<?= base_url('asset/foto-produk/' . $value->gambar) ?>" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name"><?= $value->nama_produk ?></td>
+                            <td data-label="Company"><?= $value->periode ?></td>
+                            <td data-label="City"><?= $value->pers_awal ?></td>
+                            <td data-label="City"><?= $value->penerimaan ?></td>
+                            <td data-label="City"><?= $value->pengeluaran ?></td>
+                            <td data-label="City"><?= $value->pers_akhir ?></td>
+                            <td data-label="City"><?= $value->status ?></td>
 
-                        <td class="actions-cell">
-                            <div class="buttons right nowrap">
-                                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button">
-                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                </button>
-                                <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                            <td class="actions-cell">
+                                <div class="buttons right nowrap">
+                                    <button class="button small green --jb-modal" data-target="sample-modal-2" type="button">
+                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                    </button>
+                                    <button class="button small red --jb-modal" data-target="sample-modal" type="button">
+                                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
             <div class="table-pagination">

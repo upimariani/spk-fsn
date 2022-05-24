@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard - Admin One Tailwind CSS Admin Dashboard</title>
+  <title>ADMIN | MEBEUL SINAR INDAH</title>
 
   <!-- Tailwind is included -->
   <link rel="stylesheet" href="<?= base_url('asset/admin-one/dist/') ?>css/main.css?v=1628755089081">
@@ -33,6 +33,8 @@
   <meta property="twitter:image:width" content="1920">
   <meta property="twitter:image:height" content="960">
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130795909-1"></script>
   <script>

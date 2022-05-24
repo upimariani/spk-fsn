@@ -2,7 +2,7 @@
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         <ul>
             <li>Admin</li>
-            <li>Forms</li>
+            <li>Calculate</li>
         </ul>
     </div>
 </section>
@@ -10,7 +10,7 @@
 <section class="is-hero-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         <h1 class="title">
-            Forms
+            Calculate This Period
         </h1>
         <button class="button light">Button</button>
     </div>
@@ -21,86 +21,76 @@
         <header class="card-header">
             <p class="card-header-title">
                 <span class="icon"><i class="mdi mdi-ballot"></i></span>
-                Forms
+                Masukkan data periode
             </p>
         </header>
         <div class="card-content">
-            <form method="get">
+            <form action="<?= base_url('Admin/cHitungFSN/hitung/' . $id) ?>" method="POST">
                 <div class="field">
-                    <label class="label">From</label>
                     <div class="field-body">
                         <div class="field">
+                            <label class="label">Periode</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select id="fsn" name="fsn">
+                                        <option value="">---Pilih Periode---</option>
+                                        <?php
+                                        foreach ($periode as $key => $value) {
+                                            $str = $value->periode;
+                                            $explode = explode("-", $str);
+                                            $tahun = $explode[0]; //untuk tahun
+                                            $bulan = $explode[1]; //untuk bulan
+                                            $tanggal = $explode[2]; //untuk tanggal
+                                        ?>
+                                            <option data-produk="<?= $value->nama_produk ?>" data-pengeluaran="<?= $value->pengeluaran ?>" data-penerimaan="<?= $value->penerimaan ?>" value="<?= $value->id_variabel ?>">Bulan: <?= $bulan ?> / Tahun : <?= $tahun ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <?= form_error('fsn', ' <p class="help">', '</p>') ?>
+                            </div>
+                        </div>
+                        <div class="field">
                             <div class="control icons-left">
-                                <input class="input" type="text" placeholder="Name">
+                                <input class="input produk" name="produk" type="text" placeholder="Name">
                                 <span class="icon left"><i class="mdi mdi-account"></i></span>
                             </div>
                         </div>
-                        <div class="field">
-                            <div class="control icons-left icons-right">
-                                <input class="input" type="email" placeholder="Email" value="alex@smith.com">
-                                <span class="icon left"><i class="mdi mdi-mail"></i></span>
-                                <span class="icon right"><i class="mdi mdi-check"></i></span>
-                            </div>
-                        </div>
+                        <?= form_error('produk', ' <p class="help">', '</p>') ?>
                     </div>
-                </div>
-                <div class="field">
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="field addons">
-                                <div class="control">
-                                    <input class="input" value="+44" size="3" readonly>
-                                </div>
-                                <div class="control expanded">
-                                    <input class="input" type="tel" placeholder="Your phone number">
-                                </div>
-                            </div>
-                            <p class="help">Do not enter the first zero</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Department</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Business development</option>
-                                <option>Marketing</option>
-                                <option>Sales</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="field">
-                    <label class="label">Subject</label>
-
-                    <div class="control">
-                        <input class="input" type="text" placeholder="e.g. Partnership opportunity">
-                    </div>
-                    <p class="help">
-                        This field is required
-                    </p>
                 </div>
 
-                <div class="field">
-                    <label class="label">Question</label>
-                    <div class="control">
-                        <textarea class="textarea" placeholder="Explain how we can help you"></textarea>
-                    </div>
-                </div>
                 <hr>
 
-                <div class="field grouped">
+                <div class="field">
+                    <label class="label">Penerimaan</label>
+
                     <div class="control">
-                        <button type="submit" class="button green">
-                            Submit
-                        </button>
+                        <input class="input penerimaan" name="penerimaan" type="text" placeholder="Total Penerimaan">
                     </div>
-                    <div class="control">
-                        <button type="reset" class="button red">
-                            Reset
-                        </button>
+                    <?= form_error('penerimaan', ' <p class="help">', '</p>') ?>
+                    <div class="field">
+                        <label class="label">Pengeluaran</label>
+
+                        <div class="control">
+                            <input class="input pengeluaran" name="pengeluaraan" type="text" placeholder="Total Pengeluaran">
+                        </div>
+                        <?= form_error('pengeluaraan', ' <p class="help">', '</p>') ?>
+                        <hr>
+                        <div class="field grouped">
+                            <div class="control">
+                                <button type="submit" class="button green">
+                                    Hitung
+                                </button>
+                            </div>
+                            <div class="control">
+                                <button type="reset" class="button red">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </form>

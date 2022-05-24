@@ -25,26 +25,40 @@
             </p>
         </header>
         <div class="card-content">
-            <form method="get">
+            <form action="<?= base_url('Admin/cProdukMasuk/create') ?>" method="POST">
                 <div class="field">
                     <label class="label">Produk</label>
                     <div class="field-body">
                         <div class="field">
                             <div class="control">
                                 <div class="select">
-                                    <select>
-                                        <option>Business development</option>
-                                        <option>Marketing</option>
-                                        <option>Sales</option>
+                                    <select name="produk">
+                                        <option value="">---Pilih Produk---</option>
+                                        <?php
+                                        foreach ($produk as $key => $value) {
+                                        ?>
+                                            <option value="<?= $value->id_produk ?>"><?= $value->nama_produk ?></option>
+                                        <?php
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
+                            <?= form_error('produk', '  <p class="text-red-600 help">', '</p>') ?>
                         </div>
                         <div class="field">
                             <div class="control icons-left icons-right">
-                                <input class="input" type="email" placeholder="Quantity">
+                                <input class="input" type="number" name="qty" placeholder="Quantity">
                                 <span class="icon left"><i class="mdi mdi-sort-numeric"></i></span>
                             </div>
+                            <?= form_error('qty', '  <p class="text-red-600 help">', '</p>') ?>
+                        </div>
+                        <div class="field">
+                            <div class="control icons-left icons-right">
+                                <input class="input" type="text" name="tgl" id="datepicker">
+                                <span class="icon left"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                            <?= form_error('tgl', '  <p class="text-red-600 help">', '</p>') ?>
                         </div>
                     </div>
                 </div>

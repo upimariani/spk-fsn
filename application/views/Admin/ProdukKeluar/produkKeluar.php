@@ -12,7 +12,7 @@
         <h1 class="title">
             Informasi Produk Keluar
         </h1>
-        <button class="button light">Button</button>
+        <a href="<?= base_url('Admin/cProdukKeluar/create') ?>" class="button light">Create</a>
     </div>
 </section>
 
@@ -54,39 +54,48 @@
                         </th>
                         <th class="image-cell"></th>
                         <th>Nama Produk</th>
-                        <th>Tanggal Masuk</th>
+                        <th>Tanggal Produk Masuk</th>
+                        <th>Tanggal Produk Keluar</th>
                         <th>Quantity Produk Keluar</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="checkbox-cell">
-                            <label class="checkbox">
-                                <input type="checkbox">
-                                <span class="check"></span>
-                            </label>
-                        </td>
-                        <td class="image-cell">
-                            <div class="image">
-                                <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="rounded-full">
-                            </div>
-                        </td>
-                        <td data-label="Name">Rebecca Bauch</td>
-                        <td data-label="Company">Daugherty-Daniel</td>
-                        <td data-label="City">South Cory</td>
+                    <?php
+                    foreach ($produk_keluar as $key => $value) {
+                    ?>
 
-                        <td class="actions-cell">
-                            <div class="buttons right nowrap">
-                                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button">
-                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                </button>
-                                <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="checkbox-cell">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    <span class="check"></span>
+                                </label>
+                            </td>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="<?= base_url('asset/foto-produk/' . $value->gambar) ?>" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name"><?= $value->nama_produk ?></td>
+                            <td data-label="Company"><?= $value->tgl_masuk ?></td>
+                            <td data-label="Company"><?= $value->tgl_keluar ?></td>
+                            <td data-label="City"><?= $value->qty_keluar ?></td>
+
+                            <td class="actions-cell">
+                                <div class="buttons right nowrap">
+                                    <button class="button small green --jb-modal" data-target="sample-modal-2" type="button">
+                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                    </button>
+                                    <button class="button small red --jb-modal" data-target="sample-modal" type="button">
+                                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
             <div class="table-pagination">

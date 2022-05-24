@@ -42,9 +42,9 @@
                     <span class="menu-item-label">Produk Keluar</span>
                 </a>
             </li>
-            <li <?php if ($this->uri->segment(1) == 'Admin' && $this->uri->segment(2) == 'cHitungFSN') {
-                    echo 'active';
-                }  ?>>
+            <li class="<?php if ($this->uri->segment(1) == 'Admin' && $this->uri->segment(2) == 'cHitungFSN') {
+                            echo 'active';
+                        }  ?>">
                 <a href="<?= base_url('Admin/cHitungFSN') ?>">
                     <span class="icon"><i class="mdi mdi-receipt"></i></span>
                     <span class="menu-item-label">Hitung Status Produk</span>

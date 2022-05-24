@@ -61,16 +61,16 @@ class cProduk extends CI_Controller
                 );
                 $this->mProduk->insert($data);
 
-                $variabel = array(
-                    'id_produk' => $this->input->post('id'),
-                    'periode' => '0',
-                    'pers_awal' => '0',
-                    'penerimaan' => '0',
-                    'pengeluaran' => '0',
-                    'pers_akhir' => '0',
-                    'status' => '0'
-                );
-                $this->mProduk->variabel($variabel);
+                // $variabel = array(
+                //     'id_produk' => $this->input->post('id'),
+                //     'periode' => '0',
+                //     'pers_awal' => '0',
+                //     'penerimaan' => '0',
+                //     'pengeluaran' => '0',
+                //     'pers_akhir' => '0',
+                //     'status' => '0'
+                // );
+                // $this->mProduk->variabel($variabel);
                 $this->session->set_flashdata('success', 'Data Produk Berhasil Ditambahkan!!!');
                 redirect('Admin/cProduk');
             }

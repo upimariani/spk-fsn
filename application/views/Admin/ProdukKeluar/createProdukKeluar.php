@@ -2,7 +2,7 @@
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         <ul>
             <li>Admin</li>
-            <li>Forms</li>
+            <li>Produk Keluar</li>
         </ul>
     </div>
 </section>
@@ -10,7 +10,7 @@
 <section class="is-hero-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         <h1 class="title">
-            Forms
+            Create New Exit Product
         </h1>
         <button class="button light">Button</button>
     </div>
@@ -21,80 +21,69 @@
         <header class="card-header">
             <p class="card-header-title">
                 <span class="icon"><i class="mdi mdi-ballot"></i></span>
-                Forms
+                Masukkan Data Produk Keluar
             </p>
         </header>
         <div class="card-content">
-            <form method="get">
-                <div class="field">
-                    <label class="label">From</label>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control icons-left">
-                                <input class="input" type="text" placeholder="Name">
-                                <span class="icon left"><i class="mdi mdi-account"></i></span>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="control icons-left icons-right">
-                                <input class="input" type="email" placeholder="Email" value="alex@smith.com">
-                                <span class="icon left"><i class="mdi mdi-mail"></i></span>
-                                <span class="icon right"><i class="mdi mdi-check"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <form action="<?= base_url('Admin/cProdukKeluar/create') ?>" method="POST">
+                <input type="hidden" class="produk" name="produk">
                 <div class="field">
                     <div class="field-body">
                         <div class="field">
-                            <div class="field addons">
-                                <div class="control">
-                                    <input class="input" value="+44" size="3" readonly>
+                            <label class="label">Produk</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select name="produk_masuk" id="produk-masuk">
+                                        <option value="">Choose Product...</option>
+                                        <?php
+                                        foreach ($produk_masuk as $key => $value) {
+                                        ?>
+                                            <option data-produk="<?= $value->id_produk ?>" data-stok="<?= $value->qty_masuk ?>" data-tgl="<?= $value->tgl_masuk ?>" value="<?= $value->id_prod_masuk ?>"><?= $value->nama_produk ?> | Tanggal Masuk : <?= $value->tgl_masuk ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
-                                <div class="control expanded">
-                                    <input class="input" type="tel" placeholder="Your phone number">
-                                </div>
+                                <?= form_error('produk_masuk', '<p class="help">', '</p>') ?>
                             </div>
-                            <p class="help">Do not enter the first zero</p>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input tgl" name="tgl_masuk" type="text" placeholder="Enter Date">
+                            </div>
+                            <?= form_error('tgl_masuk', '<p class="help">', '</p>') ?>
                         </div>
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Department</label>
+                    <label class="label">Quantity</label>
                     <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Business development</option>
-                                <option>Marketing</option>
-                                <option>Sales</option>
-                            </select>
-                        </div>
+                        <input class="input qty" name="qty_masuk" type="text" placeholder="Enter Quantity">
                     </div>
+                    <?= form_error('qty_masuk', '<p class="help">', '</p>') ?>
                 </div>
                 <hr>
                 <div class="field">
-                    <label class="label">Subject</label>
+                    <label class="label">Tanggal Keluar</label>
 
                     <div class="control">
-                        <input class="input" type="text" placeholder="e.g. Partnership opportunity">
+                        <input class="input" id="datepicker" name="tgl_keluar" type="text" placeholder="Masukkan Tanggal Keluar">
                     </div>
-                    <p class="help">
-                        This field is required
-                    </p>
+                    <?= form_error('tgl_keluar', '<p class="help">', '</p>') ?>
                 </div>
-
                 <div class="field">
-                    <label class="label">Question</label>
+                    <label class="label">Quantity Keluar</label>
+
                     <div class="control">
-                        <textarea class="textarea" placeholder="Explain how we can help you"></textarea>
+                        <input class="input" type="number" name="qty_keluar" placeholder="Masukkan Quantity Keluar">
                     </div>
+                    <?= form_error('qty_keluar', '<p class="help">', '</p>') ?>
                 </div>
                 <hr>
-
                 <div class="field grouped">
                     <div class="control">
                         <button type="submit" class="button green">
-                            Submit
+                            Save
                         </button>
                     </div>
                     <div class="control">

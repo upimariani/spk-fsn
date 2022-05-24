@@ -58,30 +58,36 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="checkbox-cell">
-                            <label class="checkbox">
-                                <input type="checkbox">
-                                <span class="check"></span>
-                            </label>
-                        </td>
-                        <td class="image-cell">
-                            <div class="image">
-                                <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="rounded-full">
-                            </div>
-                        </td>
-                        <td data-label="Name">Rebecca Bauch</td>
-                        <td class="actions-cell">
-                            <div class="buttons right nowrap">
-                                <button class="button small green --jb-modal" data-target="sample-modal-2" type="button">
-                                    <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                </button>
-                                <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                                    <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    <?php
+                    foreach ($variabel as $key => $value) {
+                    ?>
+                        <tr>
+                            <td class="checkbox-cell">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    <span class="check"></span>
+                                </label>
+                            </td>
+                            <td class="image-cell">
+                                <div class="image">
+                                    <img src="<?= base_url('asset/foto-produk/' . $value->gambar) ?>" class="rounded-full">
+                                </div>
+                            </td>
+                            <td data-label="Name"><?= $value->nama_produk ?></td>
+                            <td class="actions-cell">
+                                <div class="buttons right nowrap">
+                                    <a href="<?= base_url('Admin/cHitungFSN/periode/' . $value->id_produk) ?>" class="button small green --jb-modal">
+                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                    </a>
+                                    <button class="button small red --jb-modal" data-target="sample-modal" type="button">
+                                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                    ?>
                 </tbody>
             </table>
             <div class="table-pagination">
