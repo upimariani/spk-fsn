@@ -44,9 +44,6 @@
 
         $(".produk").html($(this).find(':selected').attr('data-produk'));
         $(".produk").val($(this).find(':selected').attr('data-produk'));
-
-
-
     });
 </script>
 <script>
