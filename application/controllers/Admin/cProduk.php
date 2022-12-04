@@ -76,6 +76,64 @@ class cProduk extends CI_Controller
             }
         }
     }
+    public function update($id)
+    {
+        $this->form_validation->set_rules('nama', 'Nama Produk', 'required');
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi Produk', 'required');
+        $this->form_validation->set_rules('harga', 'Harga Produk', 'required');
+        if ($this->form_validation->run() == TRUE) {
+            $config['upload_path']          = './asset/foto-produk';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 5000;
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('gambar')) {
+                $data = array(
+                    'produk' => $this->mProduk->edit($id)
+                );
+                $this->load->view('Admin/Layout/head');
+                $this->load->view('Admin/Layout/navbar');
+                $this->load->view('Admin/Layout/aside');
+                $this->load->view('Admin/Produk/updateproduk', $data);
+                $this->load->view('Admin/Layout/footer');
+            } else {
+
+                $upload_data =  $this->upload->data();
+                $data = array(
+                    'nama_produk' => $this->input->post('nama'),
+                    'deskripsi' => $this->input->post('deskripsi'),
+                    'harga' => $this->input->post('harga'),
+                    'gambar' => $upload_data['file_name']
+                );
+                $this->mProduk->update($id, $data);
+                $this->session->set_flashdata('success', 'Data Produk Berhasil Diperbaharui !!!');
+                redirect('Admin/cProduk');
+            } //tanpa ganti gambar
+            $data = array(
+                'nama_produk' => $this->input->post('nama'),
+                'deskripsi' => $this->input->post('deskripsi'),
+                'harga' => $this->input->post('harga')
+            );
+            $this->mProduk->update($id, $data);
+            $this->session->set_flashdata('success', 'Data Produk Berhasil Diperbaharui !!!');
+            redirect('Admin/cProduk');
+        }
+        $data = array(
+            'produk' => $this->mProduk->edit($id)
+        );
+        $this->load->view('Admin/Layout/head');
+        $this->load->view('Admin/Layout/navbar');
+        $this->load->view('Admin/Layout/aside');
+        $this->load->view('Admin/Produk/updateproduk', $data);
+        $this->load->view('Admin/Layout/footer');
+    }
+    public function delete($id)
+    {
+        $this->mProduk->delete($id);
+        $this->session->set_flashdata('success', 'Data Produk Berhasil Dihapus !!!');
+        redirect('Admin/cProduk');
+    }
 }
 
 /* End of file cProduk.php */

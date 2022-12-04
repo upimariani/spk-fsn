@@ -30,7 +30,7 @@ class Login extends CI_Controller
                 if ($level == '1') {
                     redirect('Admin/cDashboard');
                 } else {
-                    redirect('Pemilik/cDashboard');
+                    redirect('Pemilik/cUser');
                 }
             } else {
                 $this->session->set_flashdata('error', 'Username dan Password');

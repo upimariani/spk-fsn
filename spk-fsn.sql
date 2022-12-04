@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Bulan Mei 2022 pada 11.27
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.3.9
+-- Waktu pembuatan: 12 Nov 2022 pada 01.28
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -41,7 +40,7 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `deskripsi`, `harga`, `gambar`) VALUES
-('NPEfJ', 'Nitori', 'Enjoy the richness of a real Japanese House.', '10000000', 'Décoration_chevron___apportez_de_la_géométrie_-_Clem_ATC.png'),
+('NPEfJ', 'Nitori edit', 'Enjoy the richness of a real Japanese House.', '10000000', 'Décoration_chevron___apportez_de_la_géométrie_-_Clem_ATC.png'),
 ('Qg24e', 'Chair', 'wood, textures and dark colours', '2000000', 'The_best_of_Habitare_–_wood,_textures_and_dark_colours___Design_Stories.jpg'),
 ('r9Jlj', 'Woddy', 'Woody Desk By Paqué Dudley Mawalla', '3000000', 'Woody_Desk_By_Paqué_Dudley_Mawalla.jpg'),
 ('WZgv2', 'Sofas Broken White', 'Sofas by Endriks', '10000000', 'Sofas.jpg');
@@ -68,7 +67,8 @@ INSERT INTO `produk_keluar` (`id_prod_keluar`, `id_prod_masuk`, `tgl_keluar`, `q
 (2, 1, '2022-05-29', 5),
 (3, 5, '2022-05-31', 25),
 (4, 5, '2022-05-25', 12),
-(5, 5, '2022-06-02', 5);
+(5, 5, '2022-06-02', 5),
+(6, 4, '2022-06-27', 3);
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ INSERT INTO `produk_masuk` (`id_prod_masuk`, `id_user`, `id_produk`, `tgl_masuk`
 (1, 1, 'NPEfJ', '2022-05-25', 0),
 (2, 1, 'NPEfJ', '2022-05-28', 30),
 (3, 1, 'NPEfJ', '2022-05-28', 50),
-(4, 1, 'Qg24e', '2022-05-19', 30),
+(4, 1, 'Qg24e', '2022-05-19', 27),
 (5, 1, 'r9Jlj', '2022-05-19', 8),
 (6, 1, 'r9Jlj', '2022-05-21', 80),
 (7, 1, 'WZgv2', '2022-05-27', 58);
@@ -118,8 +118,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `alamat`, `no_hp`, `username`, `password`, `level_user`) VALUES
-(1, 'Rafi', 'Kuningan, Jawa Barat', '085156727368', 'admin', 'admin', 1),
-(2, 'Pemilik', 'Ciawigebang, Kuningan', '085156727388', 'pemilik', 'pemilik', 2);
+(2, 'Pemilik', 'Ciawigebang, Kuningan', '085156727388', 'pemilik', 'pemilik', 2),
+(3, 'Admin', 'Kuningan Jawa Barat', '089765676545', 'admin', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -151,8 +151,9 @@ INSERT INTO `variabel_item` (`id_variabel`, `id_produk`, `periode`, `pers_awal`,
 (6, 'WZgv2', '2021-12-01', '385', '78', '87', '376', 'slow'),
 (7, 'WZgv2', '2022-01-01', '376', '89', '86', '379', 'slow'),
 (8, 'WZgv2', '2022-02-01', '379', '100', '50', '429', 'slow'),
-(9, 'WZgv2', '2022-03-01', '429', '104', '110', '423', 'fast'),
-(10, 'WZgv2', '2022-04-01', '423', '79', '150', '352', 'fast');
+(9, 'WZgv2', '2022-03-01', '0', '104', '110', '423', '0'),
+(10, 'WZgv2', '2022-04-01', '423', '79', '150', '352', 'fast'),
+(11, 'Qg24e', '2022-06-27', '0', '0', '3', '0', '0');
 
 --
 -- Indexes for dumped tables
@@ -196,7 +197,7 @@ ALTER TABLE `variabel_item`
 -- AUTO_INCREMENT untuk tabel `produk_keluar`
 --
 ALTER TABLE `produk_keluar`
-  MODIFY `id_prod_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_prod_keluar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk_masuk`
@@ -208,13 +209,13 @@ ALTER TABLE `produk_masuk`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `variabel_item`
 --
 ALTER TABLE `variabel_item`
-  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_variabel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

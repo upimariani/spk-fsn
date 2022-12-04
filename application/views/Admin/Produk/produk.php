@@ -83,12 +83,12 @@
 
                             <td class="actions-cell">
                                 <div class="buttons right nowrap">
-                                    <button class="button small green --jb-modal" data-target="sample-modal-2" type="button">
-                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                    </button>
-                                    <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                    </button>
+                                    <a href="<?= base_url('Admin/cProduk/update/' . $value->id_produk) ?>" class="button green --jb-modal">
+                                        <span class="icon">Update</span>
+                                    </a>
+                                    <a href="<?= base_url('Admin/cProduk/delete/' . $value->id_produk) ?>" onclick="return confirm('Are you sure?')" class="button red --jb-modal">
+                                        <span class="icon"> Hapus </span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

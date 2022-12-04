@@ -27,7 +27,7 @@
         <div class="card-content">
             <?php echo form_open_multipart('Admin/cProduk/create');
             $id_produk = random_string('alnum', 5) ?>
-            <input type="text" name="id" value="<?= $id_produk ?>">
+            <input type="hidden" name="id" value="<?= $id_produk ?>">
             <div class="field">
                 <label class="label">From</label>
                 <div class="field-body">
