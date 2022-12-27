@@ -84,12 +84,12 @@
 
                             <td class="actions-cell">
                                 <div class="buttons right nowrap">
-                                    <button class="button green --jb-modal" data-target="sample-modal-2" type="button">
+                                    <button class="button green --jb-modal" data-target="sample-modal-2<?= $value->id_prod_keluar ?>" type="button">
                                         <span class="icon">Update</span>
                                     </button>
-                                    <button class="button red --jb-modal" data-target="sample-modal" type="button">
+                                    <a href="<?= base_url('Admin/cProdukKeluar/delete/' . $value->id_prod_keluar) ?>" onclick="return confirm('Are you sure?')" class="button red --jb-modal">
                                         <span class="icon">Hapus</span>
-                                    </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -98,16 +98,7 @@
                     ?>
                 </tbody>
             </table>
-            <div class="table-pagination">
-                <div class="flex items-center justify-between">
-                    <div class="buttons">
-                        <button type="button" class="button active">1</button>
-                        <button type="button" class="button">2</button>
-                        <button type="button" class="button">3</button>
-                    </div>
-                    <small>Page 1 of 3</small>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>
@@ -128,19 +119,67 @@
     </div>
 </div>
 
-<div id="sample-modal-2" class="modal">
-    <div class="modal-background --jb-modal-close"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title">Sample modal</p>
-        </header>
-        <section class="modal-card-body">
-            <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-            <p>This is sample modal</p>
-        </section>
-        <footer class="modal-card-foot">
-            <button class="button --jb-modal-close">Cancel</button>
-            <button class="button blue --jb-modal-close">Confirm</button>
-        </footer>
-    </div>
-</div>
+<?php
+foreach ($produk_keluar as $key => $value) {
+?>
+    <form action="<?= base_url('Admin/cProdukKeluar/update/' . $value->id_prod_keluar) ?>" method="POST">
+        <div id="sample-modal-2<?= $value->id_prod_keluar ?>" class="modal">
+            <div class="modal-background --jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Perbaharui data keluar</p>
+                </header>
+                <section class="modal-card-body">
+                    <div class="card-content">
+                        <input type="hidden" class="produk" name="produk">
+                        <div class="field">
+                            <div class="field-body">
+                                <div class="field">
+                                    <label class="label">Produk</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select name="produk_masuk" id="produk-masuk" disabled>
+
+                                                <option><?= $value->nama_produk ?></option>
+
+                                            </select>
+                                        </div>
+                                        <?= form_error('produk_masuk', '<p class="help">', '</p>') ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="field">
+                            <label class="label">Tanggal Keluar</label>
+
+                            <div class="control">
+                                <input class="input" type="date" name="tgl_keluar" value="<?= $value->tgl_keluar ?>" type="text" placeholder="Masukkan Tanggal Keluar" readonly>
+                            </div>
+                            <?= form_error('tgl_keluar', '<p class="help">', '</p>') ?>
+                        </div>
+                        <div class="field">
+                            <label class="label">Quantity Keluar</label>
+
+                            <div class="control">
+                                <input class="input" type="number" name="qty_keluar" value="<?= $value->qty_keluar ?>" placeholder="Masukkan Quantity Keluar">
+                            </div>
+                            <?= form_error('qty_keluar', '<p class="help">', '</p>') ?>
+                        </div>
+                        <hr>
+
+
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button --jb-modal-close">Cancel</button>
+                    <button class="button blue --jb-modal-close">Confirm</button>
+                </footer>
+            </div>
+        </div>
+    </form>
+<?php
+}
+?>

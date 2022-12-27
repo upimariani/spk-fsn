@@ -14,7 +14,9 @@ class cProdukKeluar extends CI_Controller
     public function index()
     {
         $data = array(
-            'produk_keluar' => $this->mProdukKeluar->select()
+            'produk_keluar' => $this->mProdukKeluar->select(),
+            'produk_masuk' => $this->mProdukKeluar->produk_masuk()
+
         );
         $this->load->view('Admin/Layout/head');
         $this->load->view('Admin/Layout/navbar');
@@ -89,6 +91,23 @@ class cProdukKeluar extends CI_Controller
             $this->session->set_flashdata('success', 'Data Produk Keluar Berhasil Disimpan!');
             redirect('Admin/cProdukKeluar');
         }
+    }
+    public function update($id)
+    {
+        $data = array(
+            'qty_keluar' => $this->input->post('qty_keluar')
+        );
+        $this->db->where('id_prod_keluar', $id);
+        $this->db->update('produk_keluar', $data);
+        $this->session->set_flashdata('success', 'Data Produk Keluar Berhasil Diperbaharui!');
+        redirect('Admin/cProdukKeluar');
+    }
+    public function delete($id)
+    {
+        $this->db->where('id_prod_keluar', $id);
+        $this->db->delete('produk_keluar');
+        $this->session->set_flashdata('success', 'Data Produk Keluar Berhasil Dihapus!');
+        redirect('Admin/cProdukKeluar');
     }
 }
 

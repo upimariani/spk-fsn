@@ -21,6 +21,11 @@ class mProdukMasuk extends CI_Model
         $this->db->where('qty_masuk!=0');
         return $this->db->get()->result();
     }
+    public function delete($id)
+    {
+        $this->db->where('id_prod_masuk', $id);
+        $this->db->delete('produk_masuk');
+    }
 }
 
 /* End of file mProdukMasuk.php */

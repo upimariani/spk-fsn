@@ -82,10 +82,10 @@
 
                             <td class="actions-cell">
                                 <div class="buttons right nowrap">
-                                    <button class="button green --jb-modal" data-target="sample-modal-2" type="button">
+                                    <!-- <button class="button green --jb-modal" data-target="sample-modal-2<?= $value->id_prod_masuk ?>" type="button">
                                         <span class="icon">Update</span>
-                                    </button>
-                                    <button class="button red --jb-modal" data-target="sample-modal" type="button">
+                                    </button> -->
+                                    <button class="button red --jb-modal" data-target="sample-modal<?= $value->id_prod_masuk ?>" type="button">
                                         <span class="icon">Hapus</span>
                                     </button>
                                 </div>
@@ -97,49 +97,96 @@
 
                 </tbody>
             </table>
-            <div class="table-pagination">
-                <div class="flex items-center justify-between">
-                    <div class="buttons">
-                        <button type="button" class="button active">1</button>
-                        <button type="button" class="button">2</button>
-                        <button type="button" class="button">3</button>
-                    </div>
-                    <small>Page 1 of 3</small>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>
-<div id="sample-modal" class="modal">
-    <div class="modal-background --jb-modal-close"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title">Sample modal</p>
-        </header>
-        <section class="modal-card-body">
-            <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-            <p>This is sample modal</p>
-        </section>
-        <footer class="modal-card-foot">
-            <button class="button --jb-modal-close">Cancel</button>
-            <button class="button red --jb-modal-close">Confirm</button>
-        </footer>
-    </div>
-</div>
 
-<div id="sample-modal-2" class="modal">
-    <div class="modal-background --jb-modal-close"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <p class="modal-card-title">Sample modal</p>
-        </header>
-        <section class="modal-card-body">
-            <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-            <p>This is sample modal</p>
-        </section>
-        <footer class="modal-card-foot">
-            <button class="button --jb-modal-close">Cancel</button>
-            <button class="button blue --jb-modal-close">Confirm</button>
-        </footer>
-    </div>
-</div>
+<?php
+foreach ($produk_masuk as $key => $value) {
+?>
+    <form action="<?= base_url('Admin/cProdukMasuk/delete/' . $value->id_prod_masuk) ?>" method="POST">
+        <div id="sample-modal<?= $value->id_prod_masuk ?>" class="modal">
+            <div class="modal-background --jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Hapus Produk</p>
+                </header>
+                <section class="modal-card-body">
+                    <p>Apakah Anda Yakin Menghapus Data <?= $value->nama_produk ?></p>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button --jb-modal-close">Cancel</button>
+                    <button class="button red --jb-modal-close">Confirm</button>
+                </footer>
+            </div>
+        </div>
+    </form>
+<?php
+}
+?>
+
+<?php
+foreach ($produk_masuk as $key => $value) {
+?>
+    <form action="<?= base_url('Admin/cProdukMasuk/update') ?>" method="POST">
+        <div id="sample-modal-2<?= $value->id_prod_masuk ?>" class="modal">
+            <div class="modal-background --jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Perbaharui data produk masuk</p>
+                </header>
+                <section class="modal-card-body">
+                    <div class="card-content">
+
+                        <div class="field">
+                            <label class="label">Produk</label>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <div class="select">
+                                            <select name="produk">
+                                                <option value="">---Pilih Produk---</option>
+                                                <?php
+                                                foreach ($produk as $key => $item) {
+                                                ?>
+                                                    <option value="<?= $item->id_produk ?>" <?php if ($value->id_produk == $item->id_produk) {
+                                                                                                echo 'selected';
+                                                                                            } ?>><?= $item->nama_produk ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <?= form_error('produk', '  <p class="text-red-600 help">', '</p>') ?>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="number" value="<?= $value->qty_masuk ?>" name="qty" placeholder="Quantity">
+                                        <span class="icon left"><i class="mdi mdi-sort-numeric"></i></span>
+                                    </div>
+                                    <?= form_error('qty', '  <p class="text-red-600 help">', '</p>') ?>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" value="<?= $value->tgl_masuk ?>" name="tgl" id="datepicker">
+                                        <span class="icon left"><i class="mdi mdi-calendar"></i></span>
+                                    </div>
+                                    <?= form_error('tgl', '  <p class="text-red-600 help">', '</p>') ?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button type="button" class="button --jb-modal-close">Cancel</button>
+                    <button type="submit" class="button blue --jb-modal-close">Confirm</button>
+                </footer>
+            </div>
+        </div>
+    </form>
+<?php
+}
+?>

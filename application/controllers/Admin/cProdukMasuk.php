@@ -14,7 +14,8 @@ class cProdukMasuk extends CI_Controller
     public function index()
     {
         $data = array(
-            'produk_masuk' => $this->mProdukMasuk->select()
+            'produk_masuk' => $this->mProdukMasuk->select(),
+            'produk' => $this->mProdukMasuk->produk()
         );
         $this->load->view('Admin/Layout/head');
         $this->load->view('Admin/Layout/navbar');
@@ -24,7 +25,6 @@ class cProdukMasuk extends CI_Controller
     }
     public function create()
     {
-
         $this->form_validation->set_rules('produk', 'Produk', 'required');
         $this->form_validation->set_rules('qty', 'Quantity', 'required');
 
@@ -81,6 +81,12 @@ class cProdukMasuk extends CI_Controller
             $this->session->set_flashdata('success', 'Data Produk Masuk Berhasil Disimpan!');
             redirect('Admin/cProdukMasuk');
         }
+    }
+    public function delete($id)
+    {
+        $this->mProdukMasuk->delete($id);
+        $this->session->set_flashdata('success', 'Data Produk Masuk Berhasil Dihapus!');
+        redirect('Admin/cProdukMasuk');
     }
 }
 
